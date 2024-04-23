@@ -44,4 +44,3 @@ Here are some important parameters:
 
 - `--do_train`: train the model.
 - `--do_eval`: test the model.
-"# DD-AGAT" 

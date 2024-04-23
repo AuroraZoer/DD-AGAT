@@ -1,0 +1,4 @@
+bert/
+__pycache__/
+data/__pycache__/
+data/stanford-corenlp-full-2018-10-05/
