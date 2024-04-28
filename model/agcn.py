@@ -5,10 +5,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as init
 
+
 class GraphConvolution(nn.Module):
     """
     Simple GCN layer
     """
+
     def __init__(self, in_features, out_features, bias=True):
         super(GraphConvolution, self).__init__()
         self.in_features = in_features
@@ -36,10 +38,12 @@ class GraphConvolution(nn.Module):
 
         return F.relu(output.type_as(text))
 
+
 class TypeGraphConvolution(nn.Module):
     """
     Type GCN layer
     """
+
     def __init__(self, in_features, out_features, bias=True):
         super(TypeGraphConvolution, self).__init__()
         self.in_features = in_features
@@ -66,7 +70,7 @@ class TypeGraphConvolution(nn.Module):
         adj_us = adj.unsqueeze(dim=-1)
         adj_us = adj_us.repeat(1, 1, 1, feat_dim)
         hidden = torch.matmul(val_sum.float(), self.weight.float())
-        output = hidden.transpose(1,2) * adj_us.float()
+        output = hidden.transpose(1, 2) * adj_us.float()
         output = torch.sum(output, dim=2)
 
         if self.bias is not None:

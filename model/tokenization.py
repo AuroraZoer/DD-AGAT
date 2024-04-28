@@ -15,7 +15,6 @@
 
 """Tokenization classes."""
 
-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import collections
@@ -50,24 +49,25 @@ PRETRAINED_VOCAB_POSITIONAL_EMBEDDINGS_SIZE_MAP = {
 }
 VOCAB_NAME = 'vocab.txt'
 
+
 def convert_to_unicode(text):
-  """Converts `text` to Unicode (if it's not already), assuming utf-8 input."""
-  if six.PY3:
-    if isinstance(text, str):
-      return text
-    elif isinstance(text, bytes):
-      return text.decode("utf-8", "ignore")
+    """Converts `text` to Unicode (if it's not already), assuming utf-8 input."""
+    if six.PY3:
+        if isinstance(text, str):
+            return text
+        elif isinstance(text, bytes):
+            return text.decode("utf-8", "ignore")
+        else:
+            raise ValueError("Unsupported string type: %s" % (type(text)))
+    elif six.PY2:
+        if isinstance(text, str):
+            return text.decode("utf-8", "ignore")
+        elif isinstance(text, unicode):
+            return text
+        else:
+            raise ValueError("Unsupported string type: %s" % (type(text)))
     else:
-      raise ValueError("Unsupported string type: %s" % (type(text)))
-  elif six.PY2:
-    if isinstance(text, str):
-      return text.decode("utf-8", "ignore")
-    elif isinstance(text, unicode):
-      return text
-    else:
-      raise ValueError("Unsupported string type: %s" % (type(text)))
-  else:
-    raise ValueError("Not running on Python2 or Python 3?")
+        raise ValueError("Not running on Python2 or Python 3?")
 
 
 def load_vocab(vocab_file):
@@ -201,8 +201,8 @@ class BertTokenizer(object):
         else:
             vocab_file = pretrained_model_name_or_path
         with open(vocab_file, "w", encoding="utf-8") as writer:
-            for word,idx in sorted(self.vocab.items(), key=lambda x:x[1]):
-                writer.write(word+"\n")
+            for word, idx in sorted(self.vocab.items(), key=lambda x: x[1]):
+                writer.write(word + "\n")
 
 
 class BasicTokenizer(object):
@@ -220,7 +220,7 @@ class BasicTokenizer(object):
         self.never_split = never_split
 
     def add_never_split_tokens(self, tokens):
-        self.never_split = tuple(list(self.never_split)+list(tokens))
+        self.never_split = tuple(list(self.never_split) + list(tokens))
 
     def never_split_tokenize(self, orig_tokens):
         tokens = []

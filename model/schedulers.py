@@ -23,7 +23,7 @@ class LRScheduler(_LRScheduler):
         # Check if using mixed precision training
         self.mixed_training = False
         base_optimizer = optimizer
- 
+
         # Check that optimizer param is valid
         if not isinstance(optimizer, Optimizer):
             raise TypeError('{} is not an Optimizer'.format(
@@ -99,7 +99,7 @@ class LinearWarmUpScheduler(LRScheduler):
         if progress < self.warmup:
             return [base_lr * progress / self.warmup for base_lr in self.base_lrs]
         else:
-            return [base_lr * max(( progress - 1.0)/(self.warmup - 1.0), 0.) for base_lr in self.base_lrs]
+            return [base_lr * max((progress - 1.0) / (self.warmup - 1.0), 0.) for base_lr in self.base_lrs]
 
 
 class PolyWarmUpScheduler(LRScheduler):

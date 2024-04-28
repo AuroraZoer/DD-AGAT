@@ -9,6 +9,7 @@ FULL_MODEL = './stanford-corenlp-full-2018-10-05'
 punctuation = ['.', ',', ':', '?', '!', '(', ')', '"', '[', ']', ';', '\'']
 chunk_pos = ['NP', 'PP', 'VP', 'ADVP', 'SBAR', 'ADJP', 'PRT', 'INTJ', 'CONJP', 'LST']
 
+
 def change(char):
     if "(" in char:
         char = char.replace("(", "-LRB-")
@@ -16,9 +17,11 @@ def change(char):
         char = char.replace(")", "-RRB-")
     return char
 
+
 def split_punc(s):
-    word_list = ''.join([" "+x+" " if x in punctuation else x for x in s]).split()
+    word_list = ''.join([" " + x + " " if x in punctuation else x for x in s]).split()
     return [w for w in word_list if len(w) > 0]
+
 
 def tokenize(sentence):
     words = []
@@ -28,6 +31,7 @@ def tokenize(sentence):
         else:
             words.extend(split_punc(seg))
     return words
+
 
 def read_txt(file_path):
     with open(file_path, 'r', encoding='utf8') as f:
@@ -40,10 +44,10 @@ def read_txt(file_path):
             e1, e2, label, sentence = splits
             sentence = sentence.strip()
 
-            e11_p = sentence.index("<e1>")  # the start position of entity1
-            e12_p = sentence.index("</e1>")  # the end position of entity1
-            e21_p = sentence.index("<e2>")  # the start position of entity2
-            e22_p = sentence.index("</e2>")  # the end position of entity2
+            e11_p = sentence.index("<e1>")
+            e12_p = sentence.index("</e1>")
+            e21_p = sentence.index("<e2>")
+            e22_p = sentence.index("</e2>")
 
             ori_sentence = tokenize(sentence)
             splits.append(ori_sentence)
@@ -57,6 +61,7 @@ def read_txt(file_path):
             else:
                 print("data format error: {}".format(line))
     return datas
+
 
 def request_features_from_stanford(data_dir, flag):
     data_path = os.path.join(data_dir, flag + '.tsv')
@@ -72,9 +77,9 @@ def request_features_from_stanford(data_dir, flag):
     all_data = []
     with StanfordCoreNLP(FULL_MODEL, lang='en') as nlp:
         for e1, e2, label, raw_sentence, ori_sentence, sentence in tqdm(sentences_str):
-            props = {'timeout': '5000000','annotators': 'pos, parse, depparse', 'tokenize.whitespace': 'true' ,
+            props = {'timeout': '5000000', 'annotators': 'pos, parse, depparse', 'tokenize.whitespace': 'true',
                      'ssplit.eolonly': 'true', 'pipelineLanguage': 'en', 'outputFormat': 'json'}
-            results=nlp.annotate(' '.join(sentence), properties=props)
+            results = nlp.annotate(' '.join(sentence), properties=props)
             results["e1"] = e1
             results["e2"] = e2
             results["label"] = label
@@ -86,13 +91,15 @@ def request_features_from_stanford(data_dir, flag):
     with open(os.path.join(data_dir, flag + '.txt'), 'w', encoding='utf8') as fout_text, \
             open(os.path.join(data_dir, flag + '.txt.dep'), 'w', encoding='utf8') as fout_dep:
         for data in all_data:
-            #text
-            fout_text.write("{}\t{}\t{}\t{}\n".format(data["e1"], data["e2"], data["label"], " ".join(data["ori_sentence"])))
-            #dep
+            # text
+            fout_text.write(
+                "{}\t{}\t{}\t{}\n".format(data["e1"], data["e2"], data["label"], " ".join(data["ori_sentence"])))
+            # dep
             for dep_info in data["sentences"][0]["basicDependencies"]:
                 fout_dep.write("{}\t{}\t{}\n".format(dep_info["governor"], dep_info["dependent"], dep_info["dep"]))
             fout_dep.write("\n")
-            assert len(data["sentences"][0]["basicDependencies"])+4 == len(data["ori_sentence"])
+            assert len(data["sentences"][0]["basicDependencies"]) + 4 == len(data["ori_sentence"])
+
 
 def get_labels_dict(data_dir):
     labels_set = set()
@@ -102,11 +109,12 @@ def get_labels_dict(data_dir):
             continue
         with open(data_path, 'r', encoding='utf-8') as f:
             for line in f:
-                e1,e2,label,sentence = line.strip().split("\t")
+                e1, e2, label, sentence = line.strip().split("\t")
                 labels_set.add(label)
     save_path = os.path.join(data_dir, "label.json")
     with open(save_path, 'w', encoding='utf-8') as f:
         json.dump(list(labels_set), f, ensure_ascii=False)
+
 
 def get_dep_type_dict(data_dir):
     dep_type_set = set()
@@ -118,11 +126,12 @@ def get_dep_type_dict(data_dir):
             for line in f:
                 if line == "\n":
                     continue
-                governor,dependent,dep_type = line.strip().split("\t")
+                governor, dependent, dep_type = line.strip().split("\t")
                 dep_type_set.add(dep_type)
     save_path = os.path.join(data_dir, "dep_type.json")
     with open(save_path, 'w', encoding='utf-8') as f:
         json.dump(list(dep_type_set), f, ensure_ascii=False)
+
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -130,6 +139,7 @@ def get_args():
     args = parser.parse_args()
 
     return args
+
 
 if __name__ == '__main__':
     args = get_args()

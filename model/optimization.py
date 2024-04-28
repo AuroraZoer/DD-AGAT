@@ -31,6 +31,7 @@ import sys
 
 logger = logging.getLogger(__name__)
 
+
 def warmup_cosine(x, warmup=0.002):
     if x < warmup:
         return x / warmup
@@ -101,7 +102,7 @@ class _LRSchedule(ABC):
         if not nowarn and self.warn_t_total and progress > 1. and progress > self.warned_for_t_total_at_progress:
             logger.warning(
                 "Training beyond specified 't_total'. Learning rate multiplier set to {}. Please set 't_total' of {} correctly."
-                    .format(ret, self.__class__.__name__))
+                .format(ret, self.__class__.__name__))
             self.warned_for_t_total_at_progress = progress
         # end warning
         return ret
@@ -346,6 +347,7 @@ class BertAdam(Optimizer):
 
         return loss
 
+
 def get_constant_schedule(optimizer, last_epoch=-1):
     """ Create a schedule with a constant learning rate.
     """
@@ -396,7 +398,7 @@ def get_cosine_schedule_with_warmup(optimizer, num_warmup_steps, num_training_st
 
 
 def get_cosine_with_hard_restarts_schedule_with_warmup(
-    optimizer, num_warmup_steps, num_training_steps, num_cycles=1.0, last_epoch=-1
+        optimizer, num_warmup_steps, num_training_steps, num_cycles=1.0, last_epoch=-1
 ):
     """ Create a schedule with a learning rate that decreases following the
     values of the cosine function with several hard restarts, after a warmup

@@ -230,7 +230,7 @@ class StanfordCoreNLP:
         self._check_language(language)
         self.lang = language
 
-    def request(self,  annotators=None, data=None, *args, **kwargs):
+    def request(self, annotators=None, data=None, *args, **kwargs):
         if sys.version_info.major >= 3:
             data = data.encode('utf-8')
 
