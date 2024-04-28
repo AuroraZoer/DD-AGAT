@@ -1,6 +1,15 @@
 # DD-AGAT
 
-> You can e-mail **Yiran Zhao** at **ZhaoYiran@emails.bjut.edu.cn**, if you have any questions.
+This is the implementation of `Integrating Dependency Type and Directionality into Adapted Graph Attention Networks to Enhance Relation Extraction` at ICDAR 2024.
+
+You can e-mail **Yiran Zhao** at **ZhaoYiran@emails.bjut.edu.cn**, if you have any questions.
+
+## Citation
+
+If you want to use our codes and datasets in your research, please cite:
+
+```
+```
 
 ## Requirements
 
