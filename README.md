@@ -21,7 +21,7 @@ Our code works with the following environment.
 
 ## Dataset and Data Processing
 
-To obtain the data, you can go to [`data`](https://github.com/cuhksz-nlp/RE-AGCN/blob/main/data) directory for details.
+To obtain the data, you can go to [`data`](./data) directory for details.
 
 ## Downloading BERT
 
