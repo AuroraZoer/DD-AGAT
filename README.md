@@ -1,6 +1,6 @@
 # DD-AGAT
 
-This is the implementation of [Integrating Dependency Type and Directionality into Adapted Graph Attention Networks to Enhance Relation Extraction](https://uniwagr-my.sharepoint.com/personal/gsfikas_uniwa_gr/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fgsfikas%5Funiwa%5Fgr%2FDocuments%2FICDAR2024%5Fproceedings%5Fpdfs%2F0108%2Epdf&parent=%2Fpersonal%2Fgsfikas%5Funiwa%5Fgr%2FDocuments%2FICDAR2024%5Fproceedings%5Fpdfs) at [ICDAR 2024](https://icdar2024.net/).
+This is the implementation of [Integrating Dependency Type and Directionality into Adapted Graph Attention Networks to Enhance Relation Extraction](https://link.springer.com/chapter/10.1007/978-3-031-70546-5_17) at [ICDAR 2024](https://icdar2024.net/).
 
 You can e-mail **Yiran Zhao** at **ZhaoYiran@emails.bjut.edu.cn**, if you have any questions.
 
@@ -9,6 +9,7 @@ You can e-mail **Yiran Zhao** at **ZhaoYiran@emails.bjut.edu.cn**, if you have a
 If you want to use our codes and datasets in your research, please cite:
 
 ```
+Zhao, Y., Wu, D., Dai, S., Li, T. (2024). Integrating Dependency Type and Directionality into Adapted Graph Attention Networks to Enhance Relation Extraction. In: Barney Smith, E.H., Liwicki, M., Peng, L. (eds) Document Analysis and Recognition - ICDAR 2024. ICDAR 2024. Lecture Notes in Computer Science, vol 14807. Springer, Cham. https://doi.org/10.1007/978-3-031-70546-5_17
 ```
 
 ## Requirements
